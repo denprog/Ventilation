@@ -1,40 +1,28 @@
 package denis.ventilation;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.nio.charset.Charset;
-
 public class MainActivity extends Activity implements View.OnClickListener
 {
-    ToggleButton dayModeButton;
-    ToggleButton nightModeButton;
+    static MainTask mainTask;
 
-    BluetoothSocket clientSocket;
-    InputStream bluetoothStream;
-
-    Thread readingThread;
-
-    boolean connected = false;
-    boolean stopping = false;
+    GridView statusGrid;
+    StatusGridAdapter statusGridAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        Log.d("LOG", "onCreate");
         super.onCreate(savedInstanceState);
+
         try
         {
             setContentView(R.layout.activity_main);
@@ -44,140 +32,130 @@ public class MainActivity extends Activity implements View.OnClickListener
             Log.d("Error", e.getMessage());
         }
 
-        dayModeButton = (ToggleButton)findViewById(R.id.toggleDayMode);
-        nightModeButton = (ToggleButton)findViewById(R.id.toggleNightMode);
+        TabHost mainTabHost = findViewById(R.id.tabHost);
+        mainTabHost.setup();
 
-        dayModeButton.setOnClickListener(this);
-        nightModeButton.setOnClickListener(this);
+        TabHost.TabSpec mSpec = mainTabHost.newTabSpec("");
+        mSpec.setContent(R.id.tab1);
+        mSpec.setIndicator("Кабинет");
+        mainTabHost.addTab(mSpec);
 
-        if (!connect())
-        {
-            Toast.makeText(getApplicationContext(), "DISCONNECTED", Toast.LENGTH_LONG).show();
-            return;
-        }
+        mSpec = mainTabHost.newTabSpec("");
+        mSpec.setContent(R.id.tab2);
+        mSpec.setIndicator("Спальня");
+        mainTabHost.addTab(mSpec);
 
-        readingThread = new Thread(readingBluetooth);
-        readingThread.start();
+        mSpec = mainTabHost.newTabSpec("");
+        mSpec.setContent(R.id.tab3);
+        mSpec.setIndicator("Состояние (выкл)");
+        mainTabHost.addTab(mSpec);
 
-        Toast.makeText(getApplicationContext(), "CONNECTED", Toast.LENGTH_LONG).show();
+        statusGrid = findViewById(R.id.statusGrid);
+        statusGrid.setAdapter(new StatusGridAdapter(this));
+        statusGridAdapter = (StatusGridAdapter)statusGrid.getAdapter();
+
+        if (mainTask != null)
+            mainTask.stop();
+        if (mainTask == null)
+            mainTask = new MainTask();
+        mainTask.start(this);
+    }
+
+    @Override
+    public Object onRetainNonConfigurationInstance()
+    {
+        mainTask.stop();
+        return mainTask;
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        mainTask.stop();
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        mainTask.stop();
     }
 
     @Override
     public void onClick(View view)
     {
-        if (!connected && !connect())
-        {
-            dayModeButton.setChecked(false);
-            nightModeButton.setChecked(false);
+        ToggleButton b = (ToggleButton)view;
 
-            Toast.makeText(getApplicationContext(), "DISCONNECTED", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if (view == dayModeButton)
+        if (mainTask.connected)
         {
-            try
+            if (!b.isChecked())
             {
-                OutputStream outStream = clientSocket.getOutputStream();
-                String value = "name=Дневной&fan=1,durationOn=2,durationOff=3&fan=2,durationOn=5,durationOff=6\r";
-                outStream.write(value.getBytes(Charset.forName("UTF-8")));
+                Config config = new Config(view.getTag().toString(), false);
+                mainTask.sendConfig(config);
             }
-            catch (IOException e)
+            else
             {
-                Log.d("Bluetooth", e.getMessage());
-            }
-        }
-        else if (view == nightModeButton)
-        {
-        }
-    }
-
-    protected boolean connect()
-    {
-        String enableBT = BluetoothAdapter.ACTION_REQUEST_ENABLE;
-        startActivityForResult(new Intent(enableBT), 0);
-
-        BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
-
-        try
-        {
-            BluetoothDevice device = bluetooth.getRemoteDevice("98:D3:32:20:CB:E5");
-            Method m = device.getClass().getMethod("createRfcommSocket",
-                new Class[]
-                    {
-                        int.class
-                    });
-
-            clientSocket = (BluetoothSocket)m.invoke(device, 1);
-            clientSocket.connect();
-
-            bluetoothStream = clientSocket.getInputStream();
-        }
-        catch (NoSuchMethodException e)
-        {
-            Log.d("Bluetooth", e.getMessage());
-            return false;
-        }
-        catch (IOException e)
-        {
-            Log.d("Bluetooth", e.getMessage());
-            return false;
-        }
-        catch (IllegalAccessException e)
-        {
-            Log.d("Bluetooth", e.getMessage());
-            return false;
-        }
-        catch (InvocationTargetException e)
-        {
-            Log.d("Bluetooth", e.getMessage());
-            return false;
-        }
-
-        connected = true;
-
-        return true;
-    }
-
-    Runnable readingBluetooth = new Runnable()
-    {
-        final byte delimiter = 10;
-        int readBufferPosition = 0;
-        byte[] readBuffer = new byte[1024];
-
-        public void run()
-        {
-            while (!Thread.currentThread().isInterrupted() && !stopping)
-            {
-                try
+                for (Config config : mainTask.configs)
                 {
-                    int bytes = bluetoothStream.available();
-                    if (bytes > 0)
+                    if (config.modeButton == b)
                     {
-                        byte[] packetBytes = new byte[bytes];
-                        bluetoothStream.read(packetBytes);
-                        for (int i = 0; i < bytes; ++i)
-                        {
-                            byte b = packetBytes[i];
-                            if (b == delimiter)
-                            {
-                                byte[] encodedBytes = new byte[readBufferPosition];
-                                System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.length);
-                                final String data = new String(encodedBytes, "UTF-8");
-                                readBufferPosition = 0;
-                            }
-                            else
-                            {
-                                readBuffer[readBufferPosition++] = b;
-                            }
-                        }
+                        mainTask.sendConfig(config);
+                        break;
                     }
                 }
-                catch (IOException e)
-                {
-                    stopping = true;
-                }
             }
         }
-    };
+
+        b.setChecked(!b.isChecked());
+    }
+
+    public void showToast(final String toast)
+    {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void UpdateStatusGrid(final int i, final int j, final String text)
+    {
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                statusGridAdapter.setItem(i, j, text);
+            }
+        });
+    }
+
+    public void ResetStatusGrid()
+    {
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                statusGridAdapter.reset();
+            }
+        });
+    }
+
+    public void UpdateStateTab(final String text)
+    {
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                TabHost mainTabHost = findViewById(R.id.tabHost);
+                TextView tv = mainTabHost.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
+                tv.setText(text);
+            }
+        });
+    }
 }

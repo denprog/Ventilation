@@ -1,73 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TabHost
+        android:id="@+id/tabHost"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="visible">
 
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="visible"/>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:id="@+id/tab1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
                     <ToggleButton
-                        android:id="@+id/toggleNightMode"
+                        android:id="@+id/toggleStudyDayMode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:tag="studyDay"
+                        android:textOff="Дневной режим"
+                        android:textOn="Дневной режим ВКЛЮЧЕН"
+                        android:visibility="visible"/>
+
+                    <ToggleButton
+                        android:id="@+id/toggleStudyNightMode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="studyNight"
                         android:textOff="Ночной режим"
                         android:textOn="Ночной режим ВКЛЮЧЕН"
-                        android:text="ToggleButton" />
+                        android:visibility="visible"/>
 
                     <ToggleButton
-                        android:id="@+id/toggleDayMode"
+                        android:id="@+id/toggleStudyInflowMode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="ToggleButton"
-                        android:textOff="Дневной режим"
-                        android:textOn="Дневной режим ВКЛЮЧЕН" />
+                        android:tag="studyInflow"
+                        android:textOff="Приток 22 °C"
+                        android:textOn="Приток 22 °C ВКЛЮЧЕН"
+                        android:visibility="visible"/>
 
+                    <ToggleButton
+                        android:id="@+id/toggleStudyExhaustMode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="studyExhaust"
+                        android:textOff="Вытяжка"
+                        android:textOn="Вытяжка ВКЛЮЧЕН"
+                        android:visibility="visible"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/tab2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
-                    <GridLayout
+                    <ToggleButton
+                        android:id="@+id/toggleBedroomInflow5Mode"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:tag="bedroomInflow5"
+                        android:textOff="Приток 5 мин"
+                        android:textOn="Приток 5 мин ВКЛЮЧЕНО"
+                        android:visibility="visible"/>
 
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
+                    <ToggleButton
+                        android:id="@+id/toggleBedroomVentilation10Mode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="bedroomVentilation10"
+                        android:textOff="Проветривание 10 мин"
+                        android:textOn="Проветривание 10 мин ВКЛЮЧЕНО"
+                        android:visibility="visible"/>
 
-                    </GridLayout>
+                    <ToggleButton
+                        android:id="@+id/toggleBedroomDayMode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="bedroomDay"
+                        android:textOff="Дневной режим"
+                        android:textOn="Дневной режим ВКЛЮЧЕН"
+                        android:visibility="visible"/>
 
+                    <ToggleButton
+                        android:id="@+id/toggleBedroomNightMode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="bedroomNight"
+                        android:textOff="Ночной режим"
+                        android:textOn="Ночной режим ВКЛЮЧЕН"
+                        android:visibility="visible"/>
+
+                    <ToggleButton
+                        android:id="@+id/toggleBedroomInflowMode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="bedroomInflow"
+                        android:textOff="Приток"
+                        android:textOn="Приток ВКЛЮЧЕН"
+                        android:visibility="visible"/>
+
+                    <ToggleButton
+                        android:id="@+id/toggleBedroomExhaustMode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="bedroomExhaust"
+                        android:textOff="Вытяжка"
+                        android:textOn="Вытяжка ВКЛЮЧЕНА"
+                        android:visibility="visible"/>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <GridView
+                        android:id="@+id/statusGrid"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:columnWidth="90dp"
+                        android:numColumns="2"
+                        android:verticalSpacing="10dp"
+                        android:horizontalSpacing="10dp"
+                        android:stretchMode="columnWidth"
+                        android:gravity="center"
+                        android:visibility="visible">
+                    </GridView>
+                </LinearLayout>
+
             </FrameLayout>
         </LinearLayout>
     </TabHost>
+
 </LinearLayout>
