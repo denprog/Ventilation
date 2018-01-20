@@ -76,8 +76,18 @@ public class MainActivity extends Activity implements View.OnClickListener
     }
 
     @Override
+    public void onStart()
+    {
+        Log.d("LOG", "onStart");
+        super.onStart();
+        if (mainTask.mainActivity == null)
+            mainTask.start(this);
+    }
+
+    @Override
     public void onStop()
     {
+        Log.d("LOG", "onStop");
         super.onStop();
         mainTask.stop();
     }

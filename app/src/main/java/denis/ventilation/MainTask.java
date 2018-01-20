@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MainTask
 {
-    private MainActivity mainActivity;
+    public MainActivity mainActivity;
 
     private BluetoothSocket clientSocket;
     private InputStream inputStream;
@@ -85,6 +85,8 @@ public class MainTask
                 pingThread.join();
             if (readingThread != null)
                 readingThread.join();
+            if (connectingThread != null)
+                connectingThread.join();
         }
         catch (InterruptedException e)
         {
@@ -94,7 +96,14 @@ public class MainTask
 
         disconnect();
 
-        mainActivity = null;
+        if (mainActivity != null)
+        {
+            mainActivity.ResetStatusGrid();
+            mainActivity.UpdateStatusGrid(0, 1, "Нет");
+            mainActivity.UpdateStateTab("Состояние (откл)");
+
+            mainActivity = null;
+        }
     }
 
     Runnable connectingDevice = new Runnable()
