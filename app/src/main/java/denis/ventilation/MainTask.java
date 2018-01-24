@@ -49,9 +49,9 @@ public class MainTask
         b = mainActivity.findViewById(R.id.toggleStudyNightMode);
         configs[1] = new Config(b.getTag().toString(), 1, 2, 3, 20, 2, 0, 0, 60, b);
         b = mainActivity.findViewById(R.id.toggleStudyInflowMode);
-        configs[2] = new Config(b.getTag().toString(), 1, 2, 2, 20, 22, b);
+        configs[2] = new Config(b.getTag().toString(), 1, 2, 2, 20, 20, b);
         b = mainActivity.findViewById(R.id.toggleStudyExhaustMode);
-        configs[3] = new Config(b.getTag().toString(), 2, 1, 2, 1, b);
+        configs[3] = new Config(b.getTag().toString(), 2, 2, 2, 20, b);
 
         b = mainActivity.findViewById(R.id.toggleBedroomInflow5Mode);
         configs[4] = new Config(b.getTag().toString(), 3, 5, 0, 5, 20, b);
@@ -197,8 +197,9 @@ public class MainTask
 
                                 if (!parseJson(data))
                                 {
+                                    readBufferPosition = 0;
                                     disconnect();
-                                    return;
+                                    continue;
                                 }
 
                                 readBufferPosition = 0;
@@ -208,8 +209,9 @@ public class MainTask
                             {
                                 if (readBufferPosition + 1 >= maxBufferLength)
                                 {
+                                    readBufferPosition = 0;
                                     disconnect();
-                                    return;
+                                    continue;
                                 }
                                 readBuffer[readBufferPosition++] = b;
                             }
@@ -234,6 +236,7 @@ public class MainTask
                 if (System.currentTimeMillis() - lastPing > 10000)
                 {
                     //переподключение
+                    lastPing = System.currentTimeMillis();
                     disconnect();
                 }
             }
@@ -442,6 +445,7 @@ public class MainTask
         }
 
         connected = true;
+        Log.d("LOG", "connected");
 
         return true;
     }
