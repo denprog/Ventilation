@@ -260,6 +260,7 @@ public class MainTask
             {
                 JSONObject jsonObject = new JSONObject(json);
 
+                mainActivity.UpdateStatusGrid(0, 1, "Есть");
                 String state = (String)jsonObject.get("state");
                 mainActivity.UpdateStatusGrid(1, 1, state);
 
