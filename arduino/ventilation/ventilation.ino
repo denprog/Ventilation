@@ -271,10 +271,10 @@ void keepTemperature(int heater, float temperature)
   float t = (heater == 1 ? sensor1.readTemperature() : sensor2.readTemperature());
   if (isnan(t))
     return;
-  if (temperature > t - 2)
-    turnHeater(heater, true);
-  else if (temperature < t + 2)
+  if (t >= temperature)
     turnHeater(heater, false);
+  else
+    turnHeater(heater, true);
 }
 
 void updateVentilation()
