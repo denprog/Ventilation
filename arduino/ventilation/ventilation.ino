@@ -217,7 +217,7 @@ void turnFan(int fan, boolean on)
 {
   if (on)
   {
-    if (fans[fan] == 0)
+    if (fans[fan - 1] == 0)
     {
       //открыть заслонку
       if (fan == 1 || fan == 3)
@@ -226,13 +226,13 @@ void turnFan(int fan, boolean on)
         digitalWrite(shutterOut, HIGH);
       digitalWrite(21 + fan, HIGH); //включить вентилятор
     }
-    ++fans[fan];
+    ++fans[fan - 1];
   }
   else
   {
-    if (fans[fan] > 0)
-      --fans[fan];
-    if (fans[fan] == 0)
+    if (fans[fan - 1] > 0)
+      --fans[fan - 1];
+    if (fans[fan - 1] == 0)
     {
       //выключить нагреватель
       if (fan == 1)
