@@ -37,39 +37,19 @@
                     android:visibility="visible">
 
                     <ToggleButton
-                        android:id="@+id/toggleStudyDayMode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:tag="studyDay"
-                        android:textOff="Дневной режим"
-                        android:textOn="Дневной режим ВКЛЮЧЕН"
-                        android:visibility="visible"/>
-
-                    <ToggleButton
-                        android:id="@+id/toggleStudyNightMode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:tag="studyNight"
-                        android:textOff="Ночной режим"
-                        android:textOn="Ночной режим ВКЛЮЧЕН"
-                        android:visibility="visible"/>
-
-                    <ToggleButton
                         android:id="@+id/toggleStudyInflowMode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:tag="studyInflow"
-                        android:textOff="Приток 22 °C"
-                        android:textOn="Приток 22 °C ВКЛЮЧЕН"
+                        android:textOff="Приток 20 мин"
                         android:visibility="visible"/>
 
                     <ToggleButton
-                        android:id="@+id/toggleStudyExhaustMode"
+                        android:id="@+id/toggleStudyExhaust5Mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:tag="studyExhaust"
-                        android:textOff="Вытяжка"
-                        android:textOn="Вытяжка ВКЛЮЧЕН"
+                        android:textOff="Вытяжка 5 мин"
                         android:visibility="visible"/>
                 </LinearLayout>
 
@@ -86,52 +66,14 @@
                         android:layout_height="wrap_content"
                         android:tag="bedroomInflow5"
                         android:textOff="Приток 5 мин"
-                        android:textOn="Приток 5 мин ВКЛЮЧЕНО"
                         android:visibility="visible"/>
 
                     <ToggleButton
-                        android:id="@+id/toggleBedroomVentilation10Mode"
+                        android:id="@+id/toggleBedroomExhaust5Mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:tag="bedroomVentilation10"
-                        android:textOff="Проветривание 10 мин"
-                        android:textOn="Проветривание 10 мин ВКЛЮЧЕНО"
-                        android:visibility="visible"/>
-
-                    <ToggleButton
-                        android:id="@+id/toggleBedroomDayMode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:tag="bedroomDay"
-                        android:textOff="Дневной режим"
-                        android:textOn="Дневной режим ВКЛЮЧЕН"
-                        android:visibility="visible"/>
-
-                    <ToggleButton
-                        android:id="@+id/toggleBedroomNightMode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:tag="bedroomNight"
-                        android:textOff="Ночной режим"
-                        android:textOn="Ночной режим ВКЛЮЧЕН"
-                        android:visibility="visible"/>
-
-                    <ToggleButton
-                        android:id="@+id/toggleBedroomInflowMode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:tag="bedroomInflow"
-                        android:textOff="Приток"
-                        android:textOn="Приток ВКЛЮЧЕН"
-                        android:visibility="visible"/>
-
-                    <ToggleButton
-                        android:id="@+id/toggleBedroomExhaustMode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:tag="bedroomExhaust"
-                        android:textOff="Вытяжка"
-                        android:textOn="Вытяжка ВКЛЮЧЕНА"
+                        android:tag="bedroomExhaust5"
+                        android:textOff="Вытяжка 5 мин"
                         android:visibility="visible"/>
                 </LinearLayout>
 

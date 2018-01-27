@@ -37,28 +37,22 @@ public class MainTask
     boolean connected = false;
     private boolean stopping = false;
 
-    Config[] configs = new Config[7];
+    Config[] configs = new Config[4];
 
     public void start(MainActivity _mainActivity)
     {
         mainActivity = _mainActivity;
 
         ToggleButton b;
-        b = mainActivity.findViewById(R.id.toggleStudyDayMode);
-        configs[0] = new Config(b.getTag().toString(), 1, 2, 3, 20, 2, 0, 0, 60, b);
-        b = mainActivity.findViewById(R.id.toggleStudyNightMode);
-        configs[1] = new Config(b.getTag().toString(), 1, 2, 3, 20, 2, 0, 0, 60, b);
         b = mainActivity.findViewById(R.id.toggleStudyInflowMode);
-        configs[2] = new Config(b.getTag().toString(), 1, 2, 2, 20, 20, b);
-        b = mainActivity.findViewById(R.id.toggleStudyExhaustMode);
-        configs[3] = new Config(b.getTag().toString(), 2, 2, 2, 20, b);
+        configs[0] = new Config(b.getTag().toString(), 1, 2, 2, 20, 20, b);
+        b = mainActivity.findViewById(R.id.toggleStudyExhaust5Mode);
+        configs[1] = new Config(b.getTag().toString(), 2, 5, 0, 5, b);
 
         b = mainActivity.findViewById(R.id.toggleBedroomInflow5Mode);
-        configs[4] = new Config(b.getTag().toString(), 3, 5, 0, 5, 20, b);
-        b = mainActivity.findViewById(R.id.toggleBedroomVentilation10Mode);
-        configs[5] = new Config(b.getTag().toString(), 3, 2, 1, 20, 4, 2, 1, 10, b);
-        b = mainActivity.findViewById(R.id.toggleBedroomDayMode);
-        configs[6] = new Config(b.getTag().toString(), 5, 10, 5, 10, b);
+        configs[2] = new Config(b.getTag().toString(), 3, 5, 0, 5, 20, b);
+        b = mainActivity.findViewById(R.id.toggleBedroomExhaust5Mode);
+        configs[3] = new Config(b.getTag().toString(), 4, 5, 0, 5, b);
 
         for (Config c : configs)
             c.modeButton.setOnClickListener(mainActivity);
