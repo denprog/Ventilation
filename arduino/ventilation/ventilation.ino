@@ -2,10 +2,10 @@
 #include <ArduinoJson.h>
 #include <DHT.h>
 
-int relay1 = 22;
-int relay2 = 23;
-int relay3 = 24;
-int relay4 = 25;
+int fan1 = 22;
+int fan2 = 23;
+int fan3 = 24;
+int fan4 = 25;
 int termo1 = 26;
 int termo2 = 27;
 int shutterIn = 28;
@@ -51,10 +51,10 @@ struct Config
 
 void setup() 
 {                
-  pinMode(relay1, OUTPUT);
-  pinMode(relay2, OUTPUT);
-  pinMode(relay3, OUTPUT);
-  pinMode(relay4, OUTPUT);
+  pinMode(fan1, OUTPUT);
+  pinMode(fan2, OUTPUT);
+  pinMode(fan3, OUTPUT);
+  pinMode(fan4, OUTPUT);
   pinMode(termo1, OUTPUT);
   pinMode(termo2, OUTPUT);
   pinMode(heater1, OUTPUT);
@@ -106,10 +106,10 @@ void sendState(boolean ok, String state = "")
   
   root["modes"] = modes;
   
-  root["fan1"] = digitalRead(relay1);
-  root["fan2"] = digitalRead(relay2);
-  root["fan3"] = digitalRead(relay3);
-  root["fan4"] = digitalRead(relay4);
+  root["fan1"] = digitalRead(fan1);
+  root["fan2"] = digitalRead(fan2);
+  root["fan3"] = digitalRead(fan3);
+  root["fan4"] = digitalRead(fan4);
 
   double t = sensor1.readTemperature();
   if (!isnan(t))
@@ -239,12 +239,29 @@ void turnFan(int fan, boolean on)
         turnHeater(1, false);
       else if (fan == 3)
         turnHeater(2, false);
+        
       digitalWrite(21 + fan, LOW); //выключить вентилятор
-      //закрыть заслонку
-      if (fan == 1 || fan == 3)
-        digitalWrite(shutterIn, LOW);
-      else
-        digitalWrite(shutterOut, LOW);
+      
+      //закрыть заслонку если другие ее не используют
+      switch (fan - 1)
+      {
+        case 0:
+          if (fans[2] == 0)
+            digitalWrite(shutterIn, LOW);
+          break;
+        case 1:
+          if (fans[3] == 0)
+            digitalWrite(shutterOut, LOW);
+          break;
+        case 2:
+          if (fans[0] == 0)
+            digitalWrite(shutterIn, LOW);
+          break;
+        case 3:
+          if (fans[1] == 0)
+            digitalWrite(shutterOut, LOW);
+          break;
+      }
     }
   }
 }
