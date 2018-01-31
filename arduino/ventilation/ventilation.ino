@@ -111,7 +111,7 @@ void sendState(boolean ok, String state = "")
   root["fan3"] = digitalRead(fan3);
   root["fan4"] = digitalRead(fan4);
 
-  double t = sensor1.readTemperature();
+  float t = sensor1.readTemperature();
   if (!isnan(t))
     root["termo1"] = t;
   t = sensor2.readTemperature();
@@ -348,7 +348,10 @@ void updateVentilation()
         c.on -= delta_time;
         if (c.on > 0)
         {
-          keepTemperature(c.fan == 1 ? 1 : 2, conf.temperature);
+          if (c.fan == 1)
+            keepTemperature(1, conf.temperature);
+          else if (c.fan == 3)
+            keepTemperature(2, conf.temperature);
           continue; //продолжение работы вентилятора
         }
           
