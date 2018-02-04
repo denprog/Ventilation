@@ -41,6 +41,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:tag="studyInflow"
+                        android:textOn="Приток 20 мин"
                         android:textOff="Приток 20 мин"
                         android:visibility="visible"/>
 
@@ -49,6 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:tag="studyExhaust"
+                        android:textOn="Вытяжка 5 мин"
                         android:textOff="Вытяжка 5 мин"
                         android:visibility="visible"/>
                 </LinearLayout>
@@ -65,6 +67,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:tag="bedroomInflow5"
+                        android:textOn="Приток 5 мин"
                         android:textOff="Приток 5 мин"
                         android:visibility="visible"/>
 
@@ -73,6 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:tag="bedroomExhaust5"
+                        android:textOn="Вытяжка 5 мин"
                         android:textOff="Вытяжка 5 мин"
                         android:visibility="visible"/>
                 </LinearLayout>
