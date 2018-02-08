@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.ToggleButton;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,22 +41,38 @@ public class MainTask
     boolean connected = false;
     private boolean stopping = false;
 
-    Config[] configs = new Config[4];
+    List<Config> configs = new ArrayList<Config>();
 
     public void start(MainActivity _mainActivity)
     {
         mainActivity = _mainActivity;
 
         ToggleButton b;
-        b = mainActivity.findViewById(R.id.toggleStudyInflowMode);
-        configs[0] = new Config(b.getTag().toString(), 1, 2, 2, 20, 20, b);
+        b = mainActivity.findViewById(R.id.toggleStudyDayMode);
+        configs.add(new Config(b.getTag().toString(), 1, 3, 20, "8:00", "21:00", 20, b));
+        b = mainActivity.findViewById(R.id.toggleStudyNightMode);
+        configs.add(new Config(b.getTag().toString(), 1, 4, 30, "21:00", "8:00", 20, b));
+        b = mainActivity.findViewById(R.id.toggleStudyInflow5Mode);
+        configs.add(new Config(b.getTag().toString(), 1, 2, 2, 5, 20, b));
+        b = mainActivity.findViewById(R.id.toggleStudyInflow10Mode);
+        configs.add(new Config(b.getTag().toString(), 1, 2, 2, 10, 20, b));
+        b = mainActivity.findViewById(R.id.toggleStudyInflow20Mode);
+        configs.add(new Config(b.getTag().toString(), 1, 2, 2, 20, 20, b));
         b = mainActivity.findViewById(R.id.toggleStudyExhaust5Mode);
-        configs[1] = new Config(b.getTag().toString(), 2, 5, 0, 5, b);
+        configs.add(new Config(b.getTag().toString(), 2, 5, 0, 5, b));
 
+        b = mainActivity.findViewById(R.id.toggleBedroomDayMode);
+        configs.add(new Config(b.getTag().toString(), 3, 2, 2, "8:00", "21:00", 20, b));
+        b = mainActivity.findViewById(R.id.toggleBedroomNightMode);
+        configs.add(new Config(b.getTag().toString(), 3, 2, 2, "21:00", "8:00", 20, b));
         b = mainActivity.findViewById(R.id.toggleBedroomInflow5Mode);
-        configs[2] = new Config(b.getTag().toString(), 3, 5, 0, 5, 20, b);
+        configs.add(new Config(b.getTag().toString(), 3, 5, 0, 5, 20, b));
+        b = mainActivity.findViewById(R.id.toggleBedroomInflow10Mode);
+        configs.add(new Config(b.getTag().toString(), 3, 5, 0, 10, 20, b));
+        b = mainActivity.findViewById(R.id.toggleBedroomInflow20Mode);
+        configs.add(new Config(b.getTag().toString(), 3, 5, 0, 20, 20, b));
         b = mainActivity.findViewById(R.id.toggleBedroomExhaust5Mode);
-        configs[3] = new Config(b.getTag().toString(), 4, 5, 0, 5, b);
+        configs.add(new Config(b.getTag().toString(), 4, 5, 0, 5, b));
 
         for (Config c : configs)
             c.modeButton.setOnClickListener(mainActivity);
@@ -98,6 +118,8 @@ public class MainTask
 
             mainActivity = null;
         }
+
+        configs.clear();
     }
 
     Runnable connectingDevice = new Runnable()
@@ -311,7 +333,6 @@ public class MainTask
                     if (jsonObject.has("termo" + Integer.toString(i)))
                     {
                         double termo = jsonObject.getDouble("termo" + Integer.toString(i));
-                        //UpdateStatusGrid(i + 6, 1, Double.toString(termo));
                         mainActivity.UpdateStatusGrid(i + 6, 1, String.format("%.1f", termo));
                     }
                     else
@@ -486,8 +507,76 @@ public class MainTask
         {
             jsonObject.put("name", config.name);
             jsonObject.put("enabled", config.enabled);
-            jsonObject.put("entire", config.entire);
             jsonObject.put("temperature", config.temperature);
+
+            int delay = 0;
+            if (!config.beginTime.isEmpty() && !config.endTime.isEmpty())
+            {
+                DateTimeFormatter f = DateTimeFormat.forPattern("HH:mm");
+                LocalTime beginTime = f.parseLocalTime(config.beginTime);
+                LocalTime endTime = f.parseLocalTime(config.endTime);
+
+                int beginTimeMinutes = beginTime.getHourOfDay() * 60 + beginTime.getMinuteOfHour();
+                int endTimeMinutes = endTime.getHourOfDay() * 60 + endTime.getMinuteOfHour();
+
+                DateTime now = new DateTime();
+                int nowMinutes = now.getMinuteOfDay();
+                if (beginTimeMinutes <= endTimeMinutes)
+                {
+                    if (nowMinutes <= beginTimeMinutes)
+                    {
+                        config.entire = endTimeMinutes - nowMinutes;
+                        delay = beginTimeMinutes - nowMinutes;
+                    }
+                    else if (nowMinutes > beginTimeMinutes && nowMinutes < endTimeMinutes)
+                    {
+                        config.entire = endTimeMinutes - nowMinutes;
+                    }
+                    else
+                    {
+                        config.entire = 24 * 60 - nowMinutes + beginTimeMinutes + endTimeMinutes;
+                        delay = 24 * 60 - nowMinutes + beginTimeMinutes;
+                    }
+                }
+                else
+                {
+                    if (nowMinutes > beginTimeMinutes && nowMinutes <= 24 * 60)
+                    {
+                        config.entire = 24 * 60 - nowMinutes + endTimeMinutes;
+                    }
+                    else if (nowMinutes >= 0 && nowMinutes < endTimeMinutes)
+                    {
+                        config.entire = endTimeMinutes - nowMinutes;
+                    }
+                    else
+                    {
+                        config.entire = 24 * 60 - nowMinutes + endTimeMinutes;
+                        delay = beginTimeMinutes - nowMinutes;
+                    }
+                }
+//                if (now.minuteOfDay().get() <= beginTimeMinutes)
+//                {
+//                    delay = beginTimeMinutes - now.minuteOfDay().get();
+//                    if (endTimeMinutes >= beginTimeMinutes)
+//                        jsonObject.put("entire", endTimeMinutes - beginTimeMinutes + delay);
+//                    else
+//                        jsonObject.put("entire", 24 * 60 - beginTimeMinutes + endTimeMinutes + delay);
+//                }
+//                else
+//                {
+//                    if (endTimeMinutes >= beginTimeMinutes)
+//                    {
+//                        jsonObject.put("entire", endTimeMinutes - now.minuteOfDay().get());
+//                    }
+//                    else
+//                    {
+//                        jsonObject.put("entire", 24 * 60 - beginTimeMinutes + endTimeMinutes -
+//                            now.minuteOfDay().get());
+//                    }
+//                }
+            }
+            //else
+            jsonObject.put("entire", config.entire);
 
             if (config.fanConfigs != null)
             {
@@ -499,7 +588,8 @@ public class MainTask
                     mode.put("fan", config.fanConfigs[i].fan);
                     mode.put("durationOn", config.fanConfigs[i].durationOn);
                     mode.put("durationOff", config.fanConfigs[i].durationOff);
-                    mode.put("delay", config.fanConfigs[i].delay);
+                    mode.put("delay", delay + config.fanConfigs[i].delay);
+
                     modes.put(mode);
                 }
 

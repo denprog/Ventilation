@@ -1,6 +1,7 @@
 package denis.ventilation;
 
 import android.widget.ToggleButton;
+import java.util.Date;
 
 public class Config
 {
@@ -31,6 +32,24 @@ public class Config
     {
         name = _name;
         entire = _entire;
+        enabled = true;
+        temperature = _temperature;
+        fanConfigs = new Config.FanConfig[1];
+
+        fanConfigs[0] = new Config.FanConfig();
+        fanConfigs[0].fan = fan1;
+        fanConfigs[0].durationOn = durationOn1;
+        fanConfigs[0].durationOff = durationOff1;
+
+        modeButton = _modeButton;
+    }
+
+    Config(String _name, int fan1, int durationOn1, int durationOff1, String _beginTime,
+           String _endTime, float _temperature, ToggleButton _modeButton)
+    {
+        name = _name;
+        beginTime = _beginTime;
+        endTime = _endTime;
         enabled = true;
         temperature = _temperature;
         fanConfigs = new Config.FanConfig[1];
@@ -77,6 +96,8 @@ public class Config
     String name; //имя конфигурации
     boolean enabled;
     int entire; //общее время работы
+    String beginTime = ""; //время начала
+    String endTime = ""; //время окончания
     float temperature = 0; //подогрев воздуха
 
     ToggleButton modeButton = null;
