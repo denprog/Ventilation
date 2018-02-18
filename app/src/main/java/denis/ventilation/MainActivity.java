@@ -143,6 +143,38 @@ public class MainActivity extends Activity implements View.OnClickListener
         });
     }
 
+    public void UpdateStatusGridFan(final int i, final String text)
+    {
+        if (i < 2)
+            UpdateStatusGrid(i + 6, 1, text);
+        else
+            UpdateStatusGrid(i + 9, 1, text);
+    }
+
+    public void UpdateStatusGridTemperature(final int i, final String text)
+    {
+        if (i == 0)
+            UpdateStatusGrid(i + 8, 1, text);
+        else
+            UpdateStatusGrid(i + 12, 1, text);
+    }
+
+    public void UpdateStatusGridHeater(final int i, final String text)
+    {
+        if (i == 0)
+            UpdateStatusGrid(i + 9, 1, text);
+        else
+            UpdateStatusGrid(i + 13, 1, text);
+    }
+
+    public void UpdateStatusGridShutter(final int i, final String text)
+    {
+        if (i == 0)
+            UpdateStatusGrid(3, 1, text);
+        else
+            UpdateStatusGrid(4, 1, text);
+    }
+
     public void ResetStatusGrid()
     {
         runOnUiThread(new Runnable()

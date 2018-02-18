@@ -1,7 +1,6 @@
 package denis.ventilation;
 
 import android.widget.ToggleButton;
-import java.util.Date;
 
 public class Config
 {

@@ -341,7 +341,7 @@ public class MainTask
                 for (int i = 1; i <= 4; ++i)
                 {
                     int fan = (int)jsonObject.get("fan" + Integer.toString(i));
-                    mainActivity.UpdateStatusGrid(i + 2, 1, fan == 1 ? "Включен" : "Выключен");
+                    mainActivity.UpdateStatusGridFan(i - 1, fan == 1 ? "Включен" : "Выключен");
                 }
 
                 for (int i = 1; i <= 2; ++i)
@@ -349,22 +349,24 @@ public class MainTask
                     if (jsonObject.has("termo" + Integer.toString(i)))
                     {
                         double termo = jsonObject.getDouble("termo" + Integer.toString(i));
-                        mainActivity.UpdateStatusGrid(i + 6, 1, String.format("%.1f", termo));
+                        mainActivity.UpdateStatusGridTemperature(i - 1, String.format("%.1f", termo));
                     }
                     else
-                        mainActivity.UpdateStatusGrid(i + 6, 1, "");
+                    {
+                        mainActivity.UpdateStatusGridTemperature(i - 1, "");
+                    }
                 }
 
                 for (int i = 1; i <= 2; ++i)
                 {
                     int heater = jsonObject.getInt("heater" + Integer.toString(i));
-                    mainActivity.UpdateStatusGrid(i + 8, 1, heater == 1 ? "Включен" : "Выключен");
+                    mainActivity.UpdateStatusGridHeater(i - 1, heater == 1 ? "Включен" : "Выключен");
                 }
 
                 int shutter = jsonObject.getInt("shutterIn");
-                mainActivity.UpdateStatusGrid(11, 1, shutter == 1 ? "Открыта" : "Закрыта");
+                mainActivity.UpdateStatusGridShutter(0, shutter == 1 ? "Открыта" : "Закрыта");
                 shutter = jsonObject.getInt("shutterOut");
-                mainActivity.UpdateStatusGrid(12, 1, shutter == 1 ? "Открыта" : "Закрыта");
+                mainActivity.UpdateStatusGridShutter(1, shutter == 1 ? "Открыта" : "Закрыта");
             }
             catch (JSONException e)
             {
@@ -570,28 +572,8 @@ public class MainTask
                         delay = beginTimeMinutes - nowMinutes;
                     }
                 }
-//                if (now.minuteOfDay().get() <= beginTimeMinutes)
-//                {
-//                    delay = beginTimeMinutes - now.minuteOfDay().get();
-//                    if (endTimeMinutes >= beginTimeMinutes)
-//                        jsonObject.put("entire", endTimeMinutes - beginTimeMinutes + delay);
-//                    else
-//                        jsonObject.put("entire", 24 * 60 - beginTimeMinutes + endTimeMinutes + delay);
-//                }
-//                else
-//                {
-//                    if (endTimeMinutes >= beginTimeMinutes)
-//                    {
-//                        jsonObject.put("entire", endTimeMinutes - now.minuteOfDay().get());
-//                    }
-//                    else
-//                    {
-//                        jsonObject.put("entire", 24 * 60 - beginTimeMinutes + endTimeMinutes -
-//                            now.minuteOfDay().get());
-//                    }
-//                }
             }
-            //else
+
             jsonObject.put("entire", config.entire);
 
             if (config.fanConfigs != null)

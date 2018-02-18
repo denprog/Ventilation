@@ -16,9 +16,6 @@ public final class StatusGridAdapter extends BaseAdapter
     public StatusGridAdapter(Context c)
     {
         context = c;
-//
-//        MainActivity currentActivity = (MainActivity)context;
-
         statusItems = new ArrayList<ArrayList<String>>();
 
         ArrayList<String> items = new ArrayList<String>();
@@ -37,52 +34,62 @@ public final class StatusGridAdapter extends BaseAdapter
         statusItems.add(items);
 
         items = new ArrayList<String>();
-        items.add("Кабинет Вентилятор 1");
-        items.add("");
-        statusItems.add(items);
-
-        items = new ArrayList<String>();
-        items.add("Кабинет Вентилятор 2");
-        items.add("");
-        statusItems.add(items);
-
-        items = new ArrayList<String>();
-        items.add("Спальня Вентилятор 1");
-        items.add("");
-        statusItems.add(items);
-
-        items = new ArrayList<String>();
-        items.add("Спальня Вентилятор 2");
-        items.add("");
-        statusItems.add(items);
-
-        items = new ArrayList<String>();
-        items.add("Температура 1");
-        items.add("");
-        statusItems.add(items);
-
-        items = new ArrayList<String>();
-        items.add("Температура 2");
-        items.add("");
-        statusItems.add(items);
-
-        items = new ArrayList<String>();
-        items.add("Нагреватель 1");
-        items.add("");
-        statusItems.add(items);
-
-        items = new ArrayList<String>();
-        items.add("Нагреватель 2");
-        items.add("");
-        statusItems.add(items);
-
-        items = new ArrayList<String>();
         items.add("Заслонка Приток");
         items.add("");
         statusItems.add(items);
 
         items = new ArrayList<String>();
         items.add("Заслонка Вытяжка");
+        items.add("");
+        statusItems.add(items);
+
+        items = new ArrayList<String>();
+        items.add("Кабинет");
+        items.add("");
+        statusItems.add(items);
+
+        items = new ArrayList<String>();
+        items.add("Вентилятор Приток");
+        items.add("");
+        statusItems.add(items);
+
+        items = new ArrayList<String>();
+        items.add("Вентилятор Вытяжка");
+        items.add("");
+        statusItems.add(items);
+
+        items = new ArrayList<String>();
+        items.add("Температура");
+        items.add("");
+        statusItems.add(items);
+
+        items = new ArrayList<String>();
+        items.add("Нагреватель");
+        items.add("");
+        statusItems.add(items);
+
+        items = new ArrayList<String>();
+        items.add("Спальня");
+        items.add("");
+        statusItems.add(items);
+
+        items = new ArrayList<String>();
+        items.add("Вентилятор Приток");
+        items.add("");
+        statusItems.add(items);
+
+        items = new ArrayList<String>();
+        items.add("Вентилятор Вытяжка");
+        items.add("");
+        statusItems.add(items);
+
+        items = new ArrayList<String>();
+        items.add("Температура");
+        items.add("");
+        statusItems.add(items);
+
+        items = new ArrayList<String>();
+        items.add("Нагреватель");
         items.add("");
         statusItems.add(items);
     }
@@ -114,7 +121,11 @@ public final class StatusGridAdapter extends BaseAdapter
         else
             v = (TextView)view;
 
-        v.setTextSize(14);
+        if (i == 10 || i == 20)
+            v.setTextSize(18);
+        else
+            v.setTextSize(14);
+
         v.setText(statusItems.get(i / 2).get(i % 2));
 
         return v;
