@@ -34,102 +34,11 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/tab1"
+                        android:id="@+id/study_tab"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:visibility="visible">
-
-                        <ToggleButton
-                            android:id="@+id/toggleStudyDay_2_5_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="studyDay_2_5"
-                            android:textOn="День 8:00 - 21:00, 2 мин через 5"
-                            android:textOff="День 8:00 - 21:00, 2 мин через 5"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleStudyDay_3_10_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="studyDay_3_10"
-                            android:textOn="День 8:00 - 21:00, 3 мин через 10"
-                            android:textOff="День 8:00 - 21:00, 3 мин через 10"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleStudyDay_3_20_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="studyDay_3_20"
-                            android:textOn="День 8:00 - 21:00, 3 мин через 20"
-                            android:textOff="День 8:00 - 21:00, 3 мин через 20"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleStudyNight_3_10_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="studyNight_3_10"
-                            android:textOn="Ночь 21:00 - 8:00, 3 мин через 10"
-                            android:textOff="Ночь 21:00 - 8:00, 3 мин через 10"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleStudyNight_4_20_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="studyNight_4_20"
-                            android:textOn="Ночь 21:00 - 8:00, 4 мин через 20"
-                            android:textOff="Ночь 21:00 - 8:00, 4 мин через 20"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleStudyNight_4_30_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="studyNight_4_30"
-                            android:textOn="Ночь 21:00 - 8:00, 4 мин через 30"
-                            android:textOff="Ночь 21:00 - 8:00, 4 мин через 30"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleStudyInflow_5_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="studyInflow_5"
-                            android:textOn="Приток 5 мин"
-                            android:textOff="Приток 5 мин"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleStudyInflow_10_2_2_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="studyInflow_10_2_2"
-                            android:textOn="Приток 10 мин, 2 мин через 2"
-                            android:textOff="Приток 10 мин, 2 мин через 2"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleStudyInflow_20_2_2_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="studyInflow_20"
-                            android:textOn="Приток 20 мин, 2 мин через 2"
-                            android:textOff="Приток 20 мин, 2 мин через 2"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleStudyExhaust_5_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="studyExhaust_5"
-                            android:textOn="Вытяжка 5 мин"
-                            android:textOff="Вытяжка 5 мин"
-                            android:visibility="visible"/>
-                    </LinearLayout>
+                        android:visibility="visible"/>
                 </ScrollView>
 
                 <ScrollView
@@ -137,102 +46,11 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/tab2"
+                        android:id="@+id/bedroom_tab"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:visibility="visible">
-
-                        <ToggleButton
-                            android:id="@+id/toggleBedroomDay_2_5_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="bedroomDay_2_5"
-                            android:textOn="День 8:00 - 21:00, 2 мин через 5"
-                            android:textOff="День 8:00 - 21:00, 2 мин через 5"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleBedroomDay_3_10_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="bedroomDay_3_10"
-                            android:textOn="День 8:00 - 21:00, 3 мин через 10"
-                            android:textOff="День 8:00 - 21:00, 3 мин через 10"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleBedroomDay_3_20_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="bedroomDay_3_20"
-                            android:textOn="День 8:00 - 21:00, 3 мин через 20"
-                            android:textOff="День 8:00 - 21:00, 3 мин через 20"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleBedroomNight_3_10_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="bedroomNight_3_10"
-                            android:textOn="Ночь 21:00 - 8:00, 3 мин через 10"
-                            android:textOff="Ночь 21:00 - 8:00, 3 мин через 10"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleBedroomNight_4_20_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="bedroomNight_4_20"
-                            android:textOn="Ночь 21:00 - 8:00, 4 мин через 20"
-                            android:textOff="Ночь 21:00 - 8:00, 4 мин через 20"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleBedroomNight_4_30_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="bedroomNight_4_30"
-                            android:textOn="Ночь 21:00 - 8:00, 4 мин через 30"
-                            android:textOff="Ночь 21:00 - 8:00, 4 мин через 30"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleBedroomInflow_5_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="bedroomInflow_5"
-                            android:textOn="Приток 5 мин"
-                            android:textOff="Приток 5 мин"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleBedroomInflow_10_2_2_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="bedroomInflow_10_2_2"
-                            android:textOn="Приток 10 мин, 2 мин через 2"
-                            android:textOff="Приток 10 мин, 2 мин через 2"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleBedroomInflow_20_2_2_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="bedroomInflow_20_2_2"
-                            android:textOn="Приток 20 мин, 2 мин через 2"
-                            android:textOff="Приток 20 мин, 2 мин через 2"
-                            android:visibility="visible"/>
-
-                        <ToggleButton
-                            android:id="@+id/toggleBedroomExhaust_5_Mode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="bedroomExhaust_5"
-                            android:textOn="Вытяжка 5 мин"
-                            android:textOff="Вытяжка 5 мин"
-                            android:visibility="visible"/>
-                    </LinearLayout>
+                        android:visibility="visible"/>
                 </ScrollView>
 
                 <LinearLayout

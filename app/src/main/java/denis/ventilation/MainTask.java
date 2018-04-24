@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
 import org.joda.time.DateTime;
@@ -47,48 +48,48 @@ public class MainTask
     {
         mainActivity = _mainActivity;
 
-        ToggleButton b;
-        b = mainActivity.findViewById(R.id.toggleStudyDay_2_5_Mode);
-        configs.add(new Config(b.getTag().toString(), 1, 2, 5, "8:00", "21:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleStudyDay_3_10_Mode);
-        configs.add(new Config(b.getTag().toString(), 1, 3, 10, "8:00", "21:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleStudyDay_3_20_Mode);
-        configs.add(new Config(b.getTag().toString(), 1, 3, 20, "8:00", "21:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleStudyNight_3_10_Mode);
-        configs.add(new Config(b.getTag().toString(), 1, 3, 10, "21:00", "8:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleStudyNight_4_20_Mode);
-        configs.add(new Config(b.getTag().toString(), 1, 4, 20, "21:00", "8:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleStudyNight_4_30_Mode);
-        configs.add(new Config(b.getTag().toString(), 1, 4, 30, "21:00", "8:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleStudyInflow_5_Mode);
-        configs.add(new Config(b.getTag().toString(), 1, 5, 0, 5, 18, b));
-        b = mainActivity.findViewById(R.id.toggleStudyInflow_10_2_2_Mode);
-        configs.add(new Config(b.getTag().toString(), 1, 2, 2, 10, 18, b));
-        b = mainActivity.findViewById(R.id.toggleStudyInflow_20_2_2_Mode);
-        configs.add(new Config(b.getTag().toString(), 1, 2, 2, 20, 18, b));
-        b = mainActivity.findViewById(R.id.toggleStudyExhaust_5_Mode);
-        configs.add(new Config(b.getTag().toString(), 2, 5, 0, 5, b));
+        List<Config> study = new ArrayList<>();
+        List<Config> bedroom = new ArrayList<>();
+        parseConfig(study, bedroom);
 
-        b = mainActivity.findViewById(R.id.toggleBedroomDay_2_5_Mode);
-        configs.add(new Config(b.getTag().toString(), 3, 2, 5, "8:00", "21:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleBedroomDay_3_10_Mode);
-        configs.add(new Config(b.getTag().toString(), 3, 3, 10, "8:00", "21:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleBedroomDay_3_20_Mode);
-        configs.add(new Config(b.getTag().toString(), 3, 3, 20, "8:00", "21:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleBedroomNight_3_10_Mode);
-        configs.add(new Config(b.getTag().toString(), 3, 3, 10, "21:00", "8:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleBedroomNight_4_20_Mode);
-        configs.add(new Config(b.getTag().toString(), 3, 4, 20, "21:00", "8:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleBedroomNight_4_30_Mode);
-        configs.add(new Config(b.getTag().toString(), 3, 4, 30, "21:00", "8:00", 18, b));
-        b = mainActivity.findViewById(R.id.toggleBedroomInflow_5_Mode);
-        configs.add(new Config(b.getTag().toString(), 3, 5, 0, 5, 18, b));
-        b = mainActivity.findViewById(R.id.toggleBedroomInflow_10_2_2_Mode);
-        configs.add(new Config(b.getTag().toString(), 3, 2, 2, 10, 18, b));
-        b = mainActivity.findViewById(R.id.toggleBedroomInflow_20_2_2_Mode);
-        configs.add(new Config(b.getTag().toString(), 3, 5, 0, 20, 18, b));
-        b = mainActivity.findViewById(R.id.toggleBedroomExhaust_5_Mode);
-        configs.add(new Config(b.getTag().toString(), 4, 5, 0, 5, b));
+        ToggleButton b;
+        LinearLayout.LayoutParams tbparams = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        configs.clear();
+
+        LinearLayout layout = mainActivity.findViewById(R.id.study_tab);
+        layout.removeAllViews();
+
+        for (Config c : study)
+        {
+            b = new ToggleButton(mainActivity);
+            b.setText(c.text);
+            b.setTextOn(c.text);
+            b.setTextOff(c.text);
+            b.setLayoutParams(tbparams);
+            b.setTag(c.name);
+            layout.addView(b);
+            c.modeButton = b;
+            configs.add(c);
+        }
+
+        layout = mainActivity.findViewById(R.id.bedroom_tab);
+        layout.removeAllViews();
+
+        for (Config c : bedroom)
+        {
+            b = new ToggleButton(mainActivity);
+            b.setText(c.text);
+            b.setTextOn(c.text);
+            b.setTextOff(c.text);
+            b.setLayoutParams(tbparams);
+            b.setTag(c.name);
+            layout.addView(b);
+            c.modeButton = b;
+            configs.add(c);
+        }
 
         for (Config c : configs)
             c.modeButton.setOnClickListener(mainActivity);
@@ -136,6 +137,105 @@ public class MainTask
         }
 
         configs.clear();
+    }
+
+    private void parseConfig(List<Config> study, List<Config> bedroom)
+    {
+        try
+        {
+            InputStream is = mainActivity.getAssets().open("config.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            String jsonStr = new String(buffer, "UTF-8");
+            JSONObject json = new JSONObject(jsonStr);
+
+            if (json.has("study"))
+                parseConfigSection(json.getJSONArray("study"), study);
+            if (json.has("bedroom"))
+                parseConfigSection(json.getJSONArray("bedroom"), bedroom);
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void parseConfigSection(JSONArray section, List<Config> config)
+    {
+        try
+        {
+            for (int i = 0; i < section.length(); ++i)
+            {
+                JSONObject mode = section.getJSONObject(i);
+                String text = mode.getString("text");
+
+                Config c = new Config(text, true);
+                c.name = "config"; //составить строку из параметров для идентификации
+
+                if (mode.has("beginTime"))
+                {
+                    c.beginTime = mode.getString("beginTime");
+                    c.name += "_" + mode.getString("beginTime");
+                }
+                if (mode.has("endTime"))
+                {
+                    c.endTime = mode.getString("endTime");
+                    c.name += "_" + mode.getString("endTime");
+                }
+                if (mode.has("temperature"))
+                {
+                    c.temperature = mode.getInt("temperature");
+                    c.name += "_" + Float.toString(c.temperature);
+                }
+                if (mode.has("entire"))
+                {
+                    c.entire = mode.getInt("entire");
+                    c.name += "_" + Integer.toString(c.entire);
+                }
+
+                for (int j = 0; j < 4; ++j)
+                {
+                    if (!mode.has("fan" + Integer.toString(j + 1)))
+                        continue;
+
+                    JSONObject fan = mode.getJSONObject("fan" + Integer.toString(j + 1));
+                    if (fan != null)
+                    {
+                        c.name += "_fan" + Integer.toString(j + 1);
+                        c.fanConfigs[j] = c.new FanConfig();
+                        c.fanConfigs[j].fan = j + 1;
+                        if (fan.has("durationOn"))
+                        {
+                            c.fanConfigs[j].durationOn = fan.getInt("durationOn");
+                            c.name += "_" + Integer.toString(c.fanConfigs[j].durationOn);
+                        }
+                        if (fan.has("durationOff"))
+                        {
+                            c.fanConfigs[j].durationOff = fan.getInt("durationOff");
+                            c.name += "_" + Integer.toString(c.fanConfigs[j].durationOff);
+                        }
+                        if (fan.has("delay"))
+                        {
+                            c.fanConfigs[j].delay = fan.getInt("delay");
+                            c.name += "_" + Integer.toString(c.fanConfigs[j].delay);
+                        }
+                    }
+                }
+
+                config.add(c);
+            }
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     Runnable connectingDevice = new Runnable()
@@ -308,7 +408,6 @@ public class MainTask
                 for (int i = 0; i < modes.length(); ++i)
                 {
                     JSONObject mode = modes.getJSONObject(i);
-
                     String name = mode.getString("name");
 
                     for (Config config : configs)
@@ -582,6 +681,9 @@ public class MainTask
 
                 for (int i = 0; i < config.fanConfigs.length; ++i)
                 {
+                    if (config.fanConfigs[i] == null)
+                        continue;
+
                     JSONObject mode = new JSONObject();
                     mode.put("fan", config.fanConfigs[i].fan);
                     mode.put("durationOn", config.fanConfigs[i].durationOn);

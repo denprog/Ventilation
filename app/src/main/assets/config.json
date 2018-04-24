@@ -1,0 +1,384 @@
+{
+  "study":
+  [
+    {
+      "text": "День 8:00 - 21:00, 2 мин через 5",
+      "fan1":
+      {
+        "durationOn": 2,
+        "durationOff": 5
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "День 8:00 - 21:00, 3 мин через 10",
+      "fan1":
+      {
+        "durationOn": 3,
+        "durationOff": 10
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "День 8:00 - 21:00, 3 мин через 10 с вытяжкой",
+      "fan1":
+      {
+        "durationOn": 3,
+        "durationOff": 10
+      },
+      "fan3":
+      {
+        "durationOn": 3,
+        "durationOff": 10
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "День 8:00 - 21:00, 3 мин через 20",
+      "fan1":
+      {
+        "durationOn": 3,
+        "durationOff": 20
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "День 8:00 - 21:00, 3 мин через 20 с вытяжкой",
+      "fan1":
+      {
+        "durationOn": 3,
+        "durationOff": 20
+      },
+      "fan3":
+      {
+        "durationOn": 3,
+        "durationOff": 20
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "Ночь 21:00 - 8:00, 3 мин через 10",
+      "fan1":
+      {
+        "durationOn": 3,
+        "durationOff": 10
+      },
+      "beginTime": "21:00",
+      "endTime": "8:00",
+      "temperature": 18
+    },
+    {
+      "text": "Ночь 21:00 - 8:00, 4 мин через 20",
+      "fan1":
+      {
+        "durationOn": 4,
+        "durationOff": 20
+      },
+      "beginTime": "21:00",
+      "endTime": "8:00",
+      "temperature": 18
+    },
+    {
+      "text": "Ночь 21:00 - 8:00, 4 мин через 30",
+      "fan1":
+      {
+        "durationOn": 4,
+        "durationOff": 30
+      },
+      "beginTime": "21:00",
+      "endTime": "8:00",
+      "temperature": 18
+    },
+    {
+      "text": "Приток 5 мин",
+      "fan1":
+      {
+        "durationOn": 5
+      },
+      "entire": 5,
+      "temperature": 18
+    },
+    {
+      "text": "Приток 10 мин, 2 через 2",
+      "fan1":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "entire": 10,
+      "temperature": 18
+    },
+    {
+      "text": "Приток 20 мин, 2 через 2",
+      "fan1":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "entire": 20,
+      "temperature": 18
+    },
+    {
+      "text": "Приток 20 мин, 2 через 2 с вытяжкой",
+      "fan1":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "fan3":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "entire": 20,
+      "temperature": 18
+    },
+    {
+      "text": "Вытяжка 5 мин",
+      "fan3":
+      {
+        "durationOn": 5
+      },
+      "entire": 5,
+      "temperature": 18
+    }
+  ],
+  "bedroom":
+  [
+    {
+      "text": "День 8:00 - 21:00, 2 мин через 5",
+      "fan2":
+      {
+        "durationOn": 2,
+        "durationOff": 5
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "День 8:00 - 21:00, 3 мин через 10",
+      "fan2":
+      {
+        "durationOn": 3,
+        "durationOff": 10
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "День 8:00 - 21:00, 3 мин через 10 с вытяжкой",
+      "fan2":
+      {
+        "durationOn": 3,
+        "durationOff": 10
+      },
+      "fan4":
+      {
+        "durationOn": 3,
+        "durationOff": 10
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "День 8:00 - 21:00, 3 мин через 20",
+      "fan2":
+      {
+        "durationOn": 3,
+        "durationOff": 20
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "День 8:00 - 21:00, 3 мин через 20 с вытяжкой",
+      "fan2":
+      {
+        "durationOn": 3,
+        "durationOff": 20
+      },
+      "fan4":
+      {
+        "durationOn": 3,
+        "durationOff": 20
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "День 8:00 - 21:00, 3 мин через 20 с вытяжкой без подогрева",
+      "fan2":
+      {
+        "durationOn": 3,
+        "durationOff": 20
+      },
+      "fan4":
+      {
+        "durationOn": 3,
+        "durationOff": 20
+      },
+      "beginTime": "8:00",
+      "endTime": "21:00",
+      "temperature": 18
+    },
+    {
+      "text": "Ночь 21:00 - 8:00, 3 мин через 10",
+      "fan2":
+      {
+        "durationOn": 3,
+        "durationOff": 10
+      },
+      "beginTime": "21:00",
+      "endTime": "8:00",
+      "temperature": 18
+    },
+    {
+      "text": "Ночь 21:00 - 8:00, 4 мин через 20",
+      "fan2":
+      {
+        "durationOn": 4,
+        "durationOff": 20
+      },
+      "beginTime": "21:00",
+      "endTime": "8:00",
+      "temperature": 18
+    },
+    {
+      "text": "Ночь 21:00 - 8:00, 4 мин через 20 с вытяжкой без подогрева",
+      "fan2":
+      {
+        "durationOn": 4,
+        "durationOff": 20
+      },
+      "fan4":
+      {
+        "durationOn": 4,
+        "durationOff": 20
+      },
+      "beginTime": "21:00",
+      "endTime": "8:00"
+    },
+    {
+      "text": "Ночь 21:00 - 8:00, 4 мин через 30",
+      "fan2":
+      {
+        "durationOn": 4,
+        "durationOff": 30
+      },
+      "beginTime": "21:00",
+      "endTime": "8:00",
+      "temperature": 18
+    },
+    {
+      "text": "Приток 5 мин",
+      "fan2":
+      {
+        "durationOn": 5
+      },
+      "entire": 5,
+      "temperature": 18
+    },
+    {
+      "text": "Приток 10 мин, 2 через 2",
+      "fan2":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "entire": 10,
+      "temperature": 18
+    },
+    {
+      "text": "Приток 20 мин, 2 через 2",
+      "fan2":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "entire": 20,
+      "temperature": 18
+    },
+    {
+      "text": "Приток 20 мин, 2 через 2 с вытяжкой",
+      "fan2":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "fan4":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "entire": 20,
+      "temperature": 18
+    },
+    {
+      "text": "Приток 30 мин, 2 через 2 с вытяжкой",
+      "fan2":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "fan4":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "entire": 30,
+      "temperature": 18
+    },
+    {
+      "text": "Приток 30 мин, 2 через 2 с вытяжкой без подогрева",
+      "fan2":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "fan4":
+      {
+        "durationOn": 2,
+        "durationOff": 2
+      },
+      "entire": 30
+    },
+    {
+      "text": "Приток 30 мин, 5 через 5 с вытяжкой без подогрева",
+      "fan2":
+      {
+        "durationOn": 5,
+        "durationOff": 5
+      },
+      "fan4":
+      {
+        "durationOn": 5,
+        "durationOff": 5
+      },
+      "entire": 30
+    },
+    {
+      "text": "Вытяжка 5 мин",
+      "fan4":
+      {
+        "durationOn": 5
+      },
+      "entire": 5,
+      "temperature": 18
+    }
+  ]
+}

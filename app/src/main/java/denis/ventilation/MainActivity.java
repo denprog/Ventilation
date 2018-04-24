@@ -36,12 +36,12 @@ public class MainActivity extends Activity implements View.OnClickListener
         mainTabHost.setup();
 
         TabHost.TabSpec mSpec = mainTabHost.newTabSpec("");
-        mSpec.setContent(R.id.tab1);
+        mSpec.setContent(R.id.study_tab);
         mSpec.setIndicator("Кабинет");
         mainTabHost.addTab(mSpec);
 
         mSpec = mainTabHost.newTabSpec("");
-        mSpec.setContent(R.id.tab2);
+        mSpec.setContent(R.id.bedroom_tab);
         mSpec.setIndicator("Спальня");
         mainTabHost.addTab(mSpec);
 
@@ -101,7 +101,8 @@ public class MainActivity extends Activity implements View.OnClickListener
         {
             if (!b.isChecked())
             {
-                Config config = new Config(view.getTag().toString(), false);
+                Config config = new Config(((ToggleButton)view).getText().toString(), false);
+                config.name = view.getTag().toString();
                 mainTask.sendConfig(config);
             }
             else
